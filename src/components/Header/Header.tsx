@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import logo from '../../assets/svg/logo.svg';
+import './Header.scss';
 
 const Header: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -27,7 +29,6 @@ const Header: React.FC = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     }
 
-    // Cleanup ao desmontar
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -36,9 +37,10 @@ const Header: React.FC = () => {
   return (
     <header className="bg-slate-600 text-white shadow-lg">
       <nav className="container mx-auto p-4 flex justify-between items-center">
-        <div className="text-2xl font-bold">Logo</div>
+        <div className="logo-area">
+          <img src={logo} alt="Logo" className="h-10 w-10" />
+        </div>
 
-        {/* Mobile Menu Button */}
         <button
           onClick={toggleMobileMenu}
           className="lg:hidden focus:outline-none hover:bg-slate-500 p-2 rounded">
@@ -57,7 +59,6 @@ const Header: React.FC = () => {
           </svg>
         </button>
 
-        {/* Links - Hidden on Mobile */}
         <div className="hidden lg:flex space-x-4">
           <a href="#" className="hover:bg-slate-500 p-2 rounded">
             Home
@@ -69,7 +70,7 @@ const Header: React.FC = () => {
               Conteúdo
             </button>
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg">
+              <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg overflow-hidden">
                 <a href="#" className="block px-4 py-2 hover:bg-gray-200">
                   Games
                 </a>
@@ -87,7 +88,7 @@ const Header: React.FC = () => {
           </a>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Menu Mobile */}
         {isMobileMenuOpen && (
           <div className="lg:hidden absolute top-16 left-0 w-full bg-slate-600 text-white">
             <a href="#" className="block px-4 py-2 hover:bg-slate-500">
