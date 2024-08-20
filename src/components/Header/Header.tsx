@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import logo from '../../assets/svg/logo.svg';
 import './Header.scss';
 
@@ -15,7 +16,6 @@ const Header: React.FC = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Função para fechar o dropdown ao clicar fora
   const handleClickOutside = (event: MouseEvent) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setIsDropdownOpen(false);
@@ -38,7 +38,9 @@ const Header: React.FC = () => {
     <header className="bg-slate-600 text-white shadow-lg">
       <nav className="container mx-auto p-4 flex justify-between items-center">
         <div className="logo-area">
-          <img src={logo} alt="Logo" className="h-10 w-10" />
+          <Link to="/">
+            <img src={logo} alt="Logo" className="h-10 w-10" />
+          </Link>
         </div>
 
         <button
@@ -60,9 +62,9 @@ const Header: React.FC = () => {
         </button>
 
         <div className="hidden lg:flex space-x-4">
-          <a href="#" className="hover:bg-slate-500 p-2 rounded">
+          <Link to="/" className="hover:bg-slate-500 p-2 rounded">
             Home
-          </a>
+          </Link>
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={toggleDropdown}
@@ -71,43 +73,43 @@ const Header: React.FC = () => {
             </button>
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg overflow-hidden">
-                <a href="#" className="block px-4 py-2 hover:bg-gray-200">
+                <Link to="/games" className="block px-4 py-2 hover:bg-gray-200">
                   Games
-                </a>
-                <a href="#" className="block px-4 py-2 hover:bg-gray-200">
+                </Link>
+                <Link to="/expansions" className="block px-4 py-2 hover:bg-gray-200">
                   DLC
-                </a>
+                </Link>
               </div>
             )}
           </div>
-          <a href="#" className="hover:bg-slate-500 p-2 rounded">
+          <Link to="/about" className="hover:bg-slate-500 p-2 rounded">
             Sobre
-          </a>
-          <a href="#" className="hover:bg-slate-500 p-2 rounded">
+          </Link>
+          <Link to="/contact" className="hover:bg-slate-500 p-2 rounded">
             Contato
-          </a>
+          </Link>
         </div>
 
         {/* Menu Mobile */}
         {isMobileMenuOpen && (
           <div className="lg:hidden absolute top-16 left-0 w-full bg-slate-600 text-white">
-            <a href="#" className="block px-4 py-2 hover:bg-slate-500">
+            <Link to="/" className="block px-4 py-2 hover:bg-slate-500">
               Home
-            </a>
+            </Link>
             <div className="bg-slate-700">
-              <a href="#" className="block px-4 py-2 hover:bg-slate-500">
+              <Link to="/games" className="block px-4 py-2 hover:bg-slate-500">
                 Games
-              </a>
-              <a href="#" className="block px-4 py-2 hover:bg-slate-500">
+              </Link>
+              <Link to="/expansions" className="block px-4 py-2 hover:bg-slate-500">
                 DLC
-              </a>
+              </Link>
             </div>
-            <a href="#" className="block px-4 py-2 hover:bg-slate-500">
+            <Link to="/about" className="block px-4 py-2 hover:bg-slate-500">
               Sobre
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-slate-500">
+            </Link>
+            <Link to="/contact" className="block px-4 py-2 hover:bg-slate-500">
               Contato
-            </a>
+            </Link>
           </div>
         )}
       </nav>
