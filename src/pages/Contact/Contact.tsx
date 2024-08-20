@@ -91,7 +91,6 @@ const Contact: React.FC = () => {
             placeholder="Seu email"
           />
         </div>
-
         <div>
           <label htmlFor="message" className="block text-sm font-medium mb-1">
             Mensagem:
@@ -99,14 +98,13 @@ const Contact: React.FC = () => {
           <textarea
             id="message"
             name="message"
-            rows={4}
+            rows={6}
             value={formData.message}
             onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
             placeholder="Sua mensagem"></textarea>
         </div>
-
         <button
           type="submit"
           className="bg-blue-500 text-white pt-2 pb-2 ps-4 pe-4 rounded hover:bg-blue-600"
