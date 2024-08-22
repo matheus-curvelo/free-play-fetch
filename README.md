@@ -1,4 +1,4 @@
-# Boilerplate React
+# Free Play Fetch
 Este projeto é uma aplicação React + Tailwind para exibir jogos gratuitos e suas DLC's. Ele utiliza a API para buscar dados e apresenta essas informações em uma interface de usuário amigável, com suporte para paginação e visualização de detalhes.
 
 ## Como usar
