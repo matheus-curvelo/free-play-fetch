@@ -31,6 +31,13 @@ const Games: React.FC = () => {
     return status === "Active" ? "Ativo" : status;
   };
 
+  // Controle para limitar o número de palavras em 'descrição'
+  const limitWords = (description: string, maxWords: number): string => {
+    const words = description.split(' ');
+    if (words.length <= maxWords) return description;
+    return words.slice(0, maxWords).join(' ') + '...';
+  };
+
   return (
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-4xl font-bold mb-4">Jogos Gratuitos</h1>
@@ -49,7 +56,7 @@ const Games: React.FC = () => {
               />
             </a>
             <h2 className="text-lg font-bold mb-2">{game.title}</h2>
-            <p className="text-sm mb-4">{game.description}</p>
+            <p className="text-sm mb-4">{limitWords(game.description, 20)}</p>
 
             <div className="flex flex-col gap-1">
               <p className="text-sm font-bold">

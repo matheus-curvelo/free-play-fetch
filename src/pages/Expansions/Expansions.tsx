@@ -21,7 +21,7 @@ const Expansions: React.FC = () => {
     if (dateString === "N/A" || !dateString) return "";
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); 
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
 
     return `${day}/${month}/${year}`;
@@ -29,6 +29,13 @@ const Expansions: React.FC = () => {
 
   const translateStatus = (status: string): string => {
     return status === "Active" ? "Ativo" : status;
+  };
+
+  // Controle para limitar o número de palavras em 'descrição'
+  const limitWords = (text: string, wordLimit: number): string => {
+    const words = text.split(" ");
+    if (words.length <= wordLimit) return text;
+    return words.slice(0, wordLimit).join(" ") + "...";
   };
 
   return (
@@ -49,7 +56,7 @@ const Expansions: React.FC = () => {
               />
             </a>
             <h2 className="text-lg font-bold mb-2">{dlc.title}</h2>
-            <p className="text-sm mb-4">{dlc.description}</p>
+            <p className="text-sm mb-4">{limitWords(dlc.description, 48)}</p>
 
             <div className="flex flex-col gap-1">
               <p className="text-sm font-bold">
