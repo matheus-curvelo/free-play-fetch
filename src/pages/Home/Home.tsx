@@ -43,11 +43,13 @@ const Home: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {gamesList.map(game => (
           <div key={game.id} className="bg-white p-4 rounded shadow">
-            <img
-              src={game.image}
-              alt={game.title}
-              className="w-full rounded mb-4"
-            />
+            <a href={game.open_giveaway_url} target="_blank" rel="noreferrer">
+              <img
+                src={game.image}
+                alt={game.title}
+                className="w-full rounded mb-4"
+              />
+            </a>
             <h2 className="text-lg font-bold mb-2">{game.title}</h2>
             <p className="text-sm mb-4">{game.description}</p>
 
@@ -79,11 +81,13 @@ const Home: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {dlcsList.map(dlc => (
           <div key={dlc.id} className="bg-white p-4 rounded shadow">
-            <img
-              src={dlc.image}
-              alt={dlc.title}
-              className="w-full rounded mb-4"
-            />
+            <a href={dlc.open_giveaway_url} target="_blank" rel="noreferrer">
+              <img
+                src={dlc.image}
+                alt={dlc.title}
+                className="w-full rounded mb-4"
+              />
+            </a>
             <h2 className="text-lg font-bold mb-2">{dlc.title}</h2>
             <p className="text-sm mb-4">{dlc.description}</p>
             <div className="flex flex-col gap-1">
