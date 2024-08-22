@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, {useState, useEffect} from "react";
 import useFetchGames from "../../utils/api";
 import Pagination from "../../components/Pagination";
 
 const Games: React.FC = () => {
-  const { games, loading, error } = useFetchGames();
+  const {games, loading, error} = useFetchGames();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // Itens por página
+  const [itemsPerPage, setItemsPerPage] = useState(8); // Itens por página
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setItemsPerPage(8); // lg
+      } else if (window.innerWidth >= 768) {
+        setItemsPerPage(6); // md
+      } else if (window.innerWidth >= 640) {
+        setItemsPerPage(6); // sm
+      } else {
+        setItemsPerPage(6); // xs
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Filtra apenas jogos
   const gamesList = games.filter(game => game.type === "Game");
@@ -21,7 +39,7 @@ const Games: React.FC = () => {
     if (dateString === "N/A" || !dateString) return "";
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); 
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
 
     return `${day}/${month}/${year}`;
@@ -31,11 +49,10 @@ const Games: React.FC = () => {
     return status === "Active" ? "Ativo" : status;
   };
 
-  // Controle para limitar o número de palavras em 'descrição'
   const limitWords = (description: string, maxWords: number): string => {
-    const words = description.split(' ');
+    const words = description.split(" ");
     if (words.length <= maxWords) return description;
-    return words.slice(0, maxWords).join(' ') + '...';
+    return words.slice(0, maxWords).join(" ") + "...";
   };
 
   return (

@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, {useState, useEffect} from "react";
 import useFetchGames from "../../utils/api";
 import Pagination from "../../components/Pagination";
 
 const Expansions: React.FC = () => {
-  const { games, loading, error } = useFetchGames();
+  const {games, loading, error} = useFetchGames();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // Itens por página
+  const [itemsPerPage, setItemsPerPage] = useState(8); // Itens por página
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setItemsPerPage(8); // lg
+      } else if (window.innerWidth >= 768) {
+        setItemsPerPage(6); // md
+      } else if (window.innerWidth >= 640) {
+        setItemsPerPage(6); // sm
+      } else {
+        setItemsPerPage(6); // xs
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Filtra apenas DLCs
   const dlcsList = games.filter(game => game.type === "DLC");
@@ -31,7 +49,6 @@ const Expansions: React.FC = () => {
     return status === "Active" ? "Ativo" : status;
   };
 
-  // Controle para limitar o número de palavras em 'descrição'
   const limitWords = (text: string, wordLimit: number): string => {
     const words = text.split(" ");
     if (words.length <= wordLimit) return text;
