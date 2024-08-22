@@ -3,7 +3,7 @@ import useFetchGames from "../../utils/api";
 
 const Home: React.FC = () => {
   const {games, loading, error} = useFetchGames();
-  const [itemsToShow, setItemsToShow] = useState(8); // Default to lg
+  const [itemsToShow, setItemsToShow] = useState(8);
 
   const handleResize = () => {
     const width = window.innerWidth;
@@ -17,7 +17,7 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    handleResize(); // Set initial value based on current screen size
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {
