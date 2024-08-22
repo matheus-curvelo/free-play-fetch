@@ -43,6 +43,8 @@ const About: React.FC = () => {
         diferentes dispositivos e a implementação de um sistema de roteamento
         eficiente. Além disso, a estilização personalizada com SASS exigiu um
         cuidado especial para manter a consistência visual em toda a aplicação.
+        Nesta ocasião, foi a primeira vez que utilizei o Tailwind CSS, o que
+        trouxe novas perspectivas e práticas para o processo de desenvolvimento.
       </p>
 
       <h2 className="text-xl font-semibold mt-4">Contribua com o Projeto</h2>
