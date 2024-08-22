@@ -1,11 +1,36 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import useFetchGames from "../../utils/api";
 
 const Home: React.FC = () => {
   const {games, loading, error} = useFetchGames();
+  const [itemsToShow, setItemsToShow] = useState(8); // Default to lg
 
-  const gamesList = games.filter(game => game.type === "Game").slice(0, 6);
-  const dlcsList = games.filter(game => game.type === "DLC").slice(0, 6);
+  const handleResize = () => {
+    const width = window.innerWidth;
+    if (width >= 1024) {
+      setItemsToShow(8); // lg
+    } else if (width >= 768) {
+      setItemsToShow(6); // md
+    } else {
+      setItemsToShow(4); // sm
+    }
+  };
+
+  useEffect(() => {
+    handleResize(); // Set initial value based on current screen size
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const gamesList = games
+    .filter(game => game.type === "Game")
+    .slice(0, itemsToShow);
+  const dlcsList = games
+    .filter(game => game.type === "DLC")
+    .slice(0, itemsToShow);
 
   const formatDate = (dateString: string): string => {
     if (dateString === "N/A" || !dateString) return "";
@@ -40,7 +65,7 @@ const Home: React.FC = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       <h2 className="text-xl font-bold mb-4">Jogos</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
         {gamesList.map(game => (
           <div key={game.id} className="bg-white p-4 rounded shadow">
             <a href={game.open_giveaway_url} target="_blank" rel="noreferrer">
@@ -78,7 +103,7 @@ const Home: React.FC = () => {
       </div>
 
       <h2 className="text-xl font-bold mb-4">DLCs</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {dlcsList.map(dlc => (
           <div key={dlc.id} className="bg-white p-4 rounded shadow">
             <a href={dlc.open_giveaway_url} target="_blank" rel="noreferrer">
