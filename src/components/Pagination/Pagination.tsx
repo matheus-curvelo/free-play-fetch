@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./Pagination.scss";
 
 const Pagination: React.FC<{
@@ -7,56 +7,63 @@ const Pagination: React.FC<{
   paginate: (pageNumber: number) => void;
   currentPage: number;
 }> = ({itemsPerPage, totalItems, paginate, currentPage}) => {
-  const pageNumbers = [];
+  const [pagesToShow, setPagesToShow] = useState(5); // Exibe 5 páginas inicialmente
+  const [showFirstLastButtons, setShowFirstLastButtons] = useState(true); // Mostra os botões "Primeira" e "Última" inicialmente
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 480) {
+        // Limite para telas mobile
+        setPagesToShow(3);
+        setShowFirstLastButtons(false); // Esconde os botões em telas pequenas
+      } else {
+        setPagesToShow(5);
+        setShowFirstLastButtons(true); // Mostra os botões em telas maiores
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const pageNumbers = [];
 
-  const maxPagesToShow = 5; // Número máximo de páginas
-  const halfMaxPages = Math.floor(maxPagesToShow / 2);
+  const half = Math.floor(pagesToShow / 2);
+  let start = Math.max(1, currentPage - half);
+  let end = Math.min(totalPages, currentPage + half);
 
-  let startPage: number;
-  let endPage: number;
-
-  if (totalPages <= maxPagesToShow) {
-    // Se o total de páginas for menor ou igual ao máximo de páginas a exibir
-    startPage = 1;
-    endPage = totalPages;
-  } else if (currentPage <= halfMaxPages) {
-    // Se a página atual estiver na primeira metade das páginas
-    startPage = 1;
-    endPage = maxPagesToShow;
-  } else if (currentPage + halfMaxPages >= totalPages) {
-    // Se a página atual estiver na última metade das páginas
-    startPage = totalPages - maxPagesToShow + 1;
-    endPage = totalPages;
-  } else {
-    // Caso padrão: páginas ao redor da página atual
-    startPage = currentPage - halfMaxPages;
-    endPage = currentPage + halfMaxPages;
+  if (currentPage <= half) {
+    end = Math.min(totalPages, pagesToShow);
+  } else if (currentPage + half >= totalPages) {
+    start = Math.max(1, totalPages - pagesToShow + 1);
   }
 
-  for (let i = startPage; i <= endPage; i++) {
+  for (let i = start; i <= end; i++) {
     pageNumbers.push(i);
   }
 
   return (
     <div className="flex justify-center mt-4">
       <nav>
-        <ul className="flex list-none items-center">
-          {/*Primeira Página*/}
-          <li className="mx-1">
-            <button
-              onClick={() => paginate(1)}
-              className={`px-3 py-1 rounded ${
-                currentPage === 1
-                  ? "bg-gray-200 opacity-50 cursor-default"
-                  : "bg-gray-200 hover:bg-gray-300"
-              }`}
-              disabled={currentPage === 1}>
-              &laquo;
-            </button>
-          </li>
-
-          {/* Voltar */}
+        <ul className="flex list-none">
+          {showFirstLastButtons && (
+            <li className="mx-1">
+              <button
+                onClick={() => paginate(1)}
+                className={`px-3 py-1 rounded ${
+                  currentPage === 1
+                    ? "bg-gray-200 opacity-50 cursor-default"
+                    : "bg-gray-200 hover:bg-gray-300"
+                }`}
+                disabled={currentPage === 1}>
+                &laquo;
+              </button>
+            </li>
+          )}
           <li className="mx-1">
             <button
               onClick={() => paginate(currentPage - 1)}
@@ -70,12 +77,11 @@ const Pagination: React.FC<{
             </button>
           </li>
 
-          {/*Páginas*/}
           {pageNumbers.map(number => (
             <li key={number} className="mx-1">
               <button
                 onClick={() => paginate(number)}
-                className={`px-3 py-1 rounded  ${
+                className={`px-3 py-1 rounded ${
                   currentPage === number
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200 hover:bg-gray-300"
@@ -85,7 +91,6 @@ const Pagination: React.FC<{
             </li>
           ))}
 
-          {/*Avançar*/}
           <li className="mx-1">
             <button
               onClick={() => paginate(currentPage + 1)}
@@ -98,20 +103,20 @@ const Pagination: React.FC<{
               &rsaquo;
             </button>
           </li>
-
-          {/*Última Página*/}
-          <li className="mx-1">
-            <button
-              onClick={() => paginate(totalPages)}
-              className={`px-3 py-1 rounded ${
-                currentPage === totalPages
-                  ? "bg-gray-200 opacity-50 cursor-default"
-                  : "bg-gray-200 hover:bg-gray-300"
-              }`}
-              disabled={currentPage === totalPages}>
-              &raquo;
-            </button>
-          </li>
+          {showFirstLastButtons && (
+            <li className="mx-1">
+              <button
+                onClick={() => paginate(totalPages)}
+                className={`px-3 py-1 rounded ${
+                  currentPage === totalPages
+                    ? "bg-gray-200 opacity-50 cursor-default"
+                    : "bg-gray-200 hover:bg-gray-300"
+                }`}
+                disabled={currentPage === totalPages}>
+                &raquo;
+              </button>
+            </li>
+          )}
         </ul>
       </nav>
     </div>
