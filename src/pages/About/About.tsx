@@ -24,16 +24,24 @@ const About: React.FC = () => {
 
       <h2 className="text-xl font-semibold mt-4">Fonte de Dados</h2>
       <p className="mb-4">
-        A API utilizada neste projeto foi obtida do site{" "}
+        As APIs utilizadas neste projeto foram obtidas dos sites{" "}
         <a
           href="https://www.gamerpower.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-500 hover:underline">
           GamerPower
+        </a>{" "}
+        e{" "}
+        <a
+          href="https://www.freetogame.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500 hover:underline">
+          Free To Game
         </a>
-        , uma plataforma que agrega informações sobre jogos gratuitos e
-        promoções disponíveis em diversas lojas online.
+        , plataformas que agregam informações sobre jogos gratuitos e promoções
+        disponíveis em diversas lojas online.
       </p>
 
       <h2 className="text-xl font-semibold mt-4">Desafios Enfrentados</h2>
