@@ -26,6 +26,12 @@ const Free2Play: React.FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Função para formatar a data
+  const formatDate = (dateString: string): string => {
+    const [year, month, day] = dateString.split("-");
+    return `${day}/${month}/${year}`;
+  };
+
   // Paginação
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -57,7 +63,9 @@ const Free2Play: React.FC = () => {
               <p className="text-sm">Plataforma: {game.platform}</p>
               <p className="text-sm">Distribuidora: {game.publisher}</p>
               <p className="text-sm">Desenvolvedor: {game.developer}</p>
-              <p className="text-sm">Data de Lançamento: {game.release_date}</p>
+              <p className="text-sm">
+                Data de Lançamento: {formatDate(game.release_date)}
+              </p>
             </div>
             <a
               href={game.game_url}
