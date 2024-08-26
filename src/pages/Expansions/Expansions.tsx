@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
-import useFetchGames from "../../utils/api";
+import useFetchGames from "../../utils/GamerPowerApi";
 import Pagination from "../../components/Pagination";
+import "./Expansions.scss";
 
 const Expansions: React.FC = () => {
   const {games, loading, error} = useFetchGames();

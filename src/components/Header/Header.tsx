@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import logo from '../../assets/svg/logo.svg';
-import './Header.scss';
+import React, {useState, useEffect, useRef} from "react";
+import {Link} from "react-router-dom";
+import logo from "../../assets/svg/logo.svg";
+import "./Header.scss";
 
 const Header: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -17,7 +17,10 @@ const Header: React.FC = () => {
   };
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setIsDropdownOpen(false);
     }
   };
@@ -80,8 +83,15 @@ const Header: React.FC = () => {
                 <Link to="/games" className="block px-4 py-2 hover:bg-gray-200">
                   Games
                 </Link>
-                <Link to="/expansions" className="block px-4 py-2 hover:bg-gray-200">
+                <Link
+                  to="/expansions"
+                  className="block px-4 py-2 hover:bg-gray-200">
                   DLC
+                </Link>
+                <Link
+                  to="/free2play"
+                  className="block px-4 py-2 hover:bg-gray-200">
+                  Free 2 Play
                 </Link>
               </div>
             )}
@@ -97,21 +107,42 @@ const Header: React.FC = () => {
         {/* Menu Mobile */}
         {isMobileMenuOpen && (
           <div className="lg:hidden absolute top-16 left-0 w-full bg-slate-600 text-white">
-            <Link to="/" className="block px-4 py-2 hover:bg-slate-500" onClick={handleLinkClick}>
+            <Link
+              to="/"
+              className="block px-4 py-2 hover:bg-slate-500"
+              onClick={handleLinkClick}>
               Home
             </Link>
             <div className="bg-slate-700">
-              <Link to="/games" className="block px-4 py-2 hover:bg-slate-500" onClick={handleLinkClick}>
+              <Link
+                to="/games"
+                className="block px-4 py-2 hover:bg-slate-500"
+                onClick={handleLinkClick}>
                 Games
               </Link>
-              <Link to="/expansions" className="block px-4 py-2 hover:bg-slate-500" onClick={handleLinkClick}>
+              <Link
+                to="/expansions"
+                className="block px-4 py-2 hover:bg-slate-500"
+                onClick={handleLinkClick}>
                 DLC
               </Link>
+              <Link
+                to="/free2play"
+                className="block px-4 py-2 hover:bg-slate-500"
+                onClick={handleLinkClick}>
+                Free 2 Play
+              </Link>
             </div>
-            <Link to="/about" className="block px-4 py-2 hover:bg-slate-500" onClick={handleLinkClick}>
+            <Link
+              to="/about"
+              className="block px-4 py-2 hover:bg-slate-500"
+              onClick={handleLinkClick}>
               Sobre
             </Link>
-            <Link to="/contact" className="block px-4 py-2 hover:bg-slate-500" onClick={handleLinkClick}>
+            <Link
+              to="/contact"
+              className="block px-4 py-2 hover:bg-slate-500"
+              onClick={handleLinkClick}>
               Contato
             </Link>
           </div>

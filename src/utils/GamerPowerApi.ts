@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-interface Game {
+interface Api {
   id: number;
   title: string;
   worth: string; // Preço
@@ -16,8 +16,8 @@ interface Game {
   status: string;
 }
 
-const useFetchGames = () => {
-  const [games, setGames] = useState<Game[]>([]);
+const GamerPowerApi = () => {
+  const [games, setGames] = useState<Api[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -53,4 +53,4 @@ const useFetchGames = () => {
   return {games, loading, error};
 };
 
-export default useFetchGames;
+export default GamerPowerApi;

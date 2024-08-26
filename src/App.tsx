@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Games from './pages/Games';
 import DLC from './pages/Expansions';
+import Free2Play from './pages/Free2Play';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import './App.scss';
@@ -19,6 +20,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/games" element={<Games />} />
             <Route path="/expansions" element={<DLC />} />
+            <Route path="/free2play" element={<Free2Play />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>

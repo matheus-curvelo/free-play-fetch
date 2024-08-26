@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import useFetchGames from "../../utils/api";
+import useFetchGames from "../../utils/GamerPowerApi";
 
 const Home: React.FC = () => {
   const {games, loading, error} = useFetchGames();
