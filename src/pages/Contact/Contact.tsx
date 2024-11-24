@@ -8,6 +8,7 @@ const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    subject: "",
     message: "",
   });
   const [isSending, setIsSending] = useState(false);
@@ -27,22 +28,30 @@ const Contact: React.FC = () => {
     setSuccessMessage("");
     setErrorMessage("");
 
+    const {name, email, subject, message} = formData;
+
+    const templateParams = {
+      from_name: name,
+      email: email,
+      subject: subject,
+      message: message,
+      to_name: "Matheus",
+    };
+
     emailjs
-      .sendForm(
-        "service_4jbxa25",
-        "template_7dggke2",
-        e.currentTarget,
-        "sKYtOpqTDPPSVEDH0"
+      .send(
+        "service_4jbxa25", // ID do serviço
+        "template_7dggke2", // ID do template
+        templateParams, // Parâmetros
+        "sKYtOpqTDPPSVEDH0" // User ID
       )
       .then(
         (result: any) => {
-          // Define the type of `result` as `any`
           setIsSending(false);
           setSuccessMessage("Mensagem enviada com sucesso!");
-          setFormData({name: "", email: "", message: ""}); // Limpar o formulário
+          setFormData({name: "", email: "", subject: "", message: ""});
         },
         (error: any) => {
-          // Define the type of `error` as `any`
           setIsSending(false);
           setErrorMessage(
             "Erro ao enviar mensagem. Tente novamente mais tarde."
@@ -91,6 +100,23 @@ const Contact: React.FC = () => {
             placeholder="Seu email"
           />
         </div>
+
+        <div>
+          <label htmlFor="subject" className="block text-sm font-medium mb-1">
+            Assunto:
+          </label>
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            value={formData.subject}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border border-gray-300 rounded"
+            placeholder="Assunto"
+          />
+        </div>
+
         <div>
           <label htmlFor="message" className="block text-sm font-medium mb-1">
             Mensagem:
